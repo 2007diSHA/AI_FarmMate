@@ -87,7 +87,7 @@ def environmental_advice(moisture, rainfall):
 
 class handler(BaseHTTPRequestHandler):
 
-    def do_GET(self):
+    def do_POST(self):
 
         if self.path == "/" or self.path == "/index.html":
 

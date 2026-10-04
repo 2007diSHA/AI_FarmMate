@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI FarmMate</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>🌱 AI FarmMate</h1>
+
+    <p>
+        Smart Farming for a Sustainable Future
+    </p>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <h2>🌾 Farm Information</h2>
+
+
+    <form id="farmForm">
+
+
+        <label>Soil Type</label>
+
+        <select name="soil_type">
+
+            <option value="Loamy">Loamy</option>
+
+            <option value="Clay">Clay</option>
+
+            <option value="Sandy">Sandy</option>
+
+        </select>
+
+
+
+        <label>Soil pH</label>
+
+        <input
+            type="number"
+            name="ph"
+            step="0.1"
+            value="6.5"
+            required
+        >
+
+
+
+        <label>Soil Moisture (%)</label>
+
+        <input
+            type="number"
+            name="moisture"
+            value="25"
+            required
+        >
+
+
+
+        <label>Temperature (°C)</label>
+
+        <input
+            type="number"
+            name="temperature"
+            value="28"
+            required
+        >
+
+
+
+        <label>Rainfall (mm)</label>
+
+        <input
+            type="number"
+            name="rainfall"
+            value="10"
+            required
+        >
+
+
+
+        <h3>🧪 Soil Nutrients</h3>
+
+
+
+        <label>Nitrogen</label>
+
+        <input
+            type="number"
+            name="nitrogen"
+            value="35"
+            required
+        >
+
+
+
+        <label>Phosphorus</label>
+
+        <input
+            type="number"
+            name="phosphorus"
+            value="35"
+            required
+        >
+
+
+
+        <label>Potassium</label>
+
+        <input
+            type="number"
+            name="potassium"
+            value="40"
+            required
+        >
+
+
+
+        <button type="submit">
+            🔍 Analyze Farm
+        </button>
+
+
+    </form>
+
+
+
+    <section id="results" class="results">
+
+        <h2>🌱 Farm Analysis</h2>
+
+
+        <div class="card">
+
+            <h3>🌾 Crop Recommendation</h3>
+
+            <p id="crop">
+                Enter your farm information.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💧 Irrigation Recommendation</h3>
+
+            <p id="irrigation">
+                -
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🧪 Fertilizer Recommendation</h3>
+
+            <p id="fertilizer">
+                -
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🌍 Environmental Advice</h3>
+
+            <p id="environmental">
+                -
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        AI FarmMate | Sustainable Agriculture Project
+    </p>
+
+</footer>
+
+
+
+<script>
+
+const form = document.getElementById("farmForm");
+
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+
+    const formData = new URLSearchParams(
+        new FormData(form)
+    );
+
+
+    try {
+
+        const response = await fetch(
+            "/analyze",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                    "application/x-www-form-urlencoded"
+                },
+                body: formData
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        document.getElementById("crop").innerText =
+            data.crop;
+
+
+        document.getElementById("irrigation").innerText =
+            data.irrigation;
+
+
+        document.getElementById("fertilizer").innerText =
+            data.fertilizer;
+
+
+        document.getElementById("environmental").innerText =
+            data.environmental;
+
+
+    }
+
+    catch(error) {
+
+        alert(
+            "Something went wrong. Please try again."
+        );
+
+        console.error(error);
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>
